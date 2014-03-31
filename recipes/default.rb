@@ -25,11 +25,16 @@
 # SOFTWARE.
 #
 
-case node['platform']
-when 'smartos'
-  include_recipe 'modcloth-hostname::smartos'
-when 'centos'
-  include_recipe 'modcloth-hostname::centos'
-when 'ubuntu'
-  include_recipe 'modcloth-hostname::ubuntu'
+hostname = Mixlib::ShellOut.new("hostname")
+
+unless hostname == node.name
+  case node['platform']
+  when 'smartos'
+    include_recipe 'modcloth-hostname::smartos'
+  when 'centos'
+    include_recipe 'modcloth-hostname::centos'
+  when 'ubuntu'
+    include_recipe 'modcloth-hostname::ubuntu'
+  end
 end
+
