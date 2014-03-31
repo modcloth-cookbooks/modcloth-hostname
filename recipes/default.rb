@@ -28,8 +28,11 @@
 case node['platform']
 when 'smartos'
   include_recipe 'modcloth-hostname::smartos'
+  not_if 'hostname | grep #{node.name}'
 when 'centos'
   include_recipe 'modcloth-hostname::centos'
+  not_if 'hostname | grep #{node.name}'
 when 'ubuntu'
   include_recipe 'modcloth-hostname::ubuntu'
+  not_if 'hostname | grep #{node.name}'
 end
